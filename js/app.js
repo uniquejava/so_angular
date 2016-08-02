@@ -1,1 +1,1 @@
-var parking = angular.module("parking", ["ngSanitize"]);
+var parking = angular.module("parking", ["ngSanitize", "ngAnimate"]);

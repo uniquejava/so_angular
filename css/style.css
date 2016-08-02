@@ -1,7 +1,35 @@
+.selected {
+    background-color: #FAFAD2;
+    transition: all 5s linear;
+}
+
+.selected-add {
+    /*勾选的一瞬间完全看不见*/
+    opacity: 0;
+}
+
+.selected-add-active {
+    /*在2s内逐渐看清*/
+    opacity: 1;
+}
+
 .accordion-item {
     background-color: silver;
     font-weight: bold;
     margin-top: 6px;
     height: 1.5em;
     line-height: 1.5em;
+}
+
+.ng-enter {
+    /*从一开始看不见*/
+    opacity: 0;
+    -webkit-transition: all 5s linear;
+    transition: all 5s linear;
+
+}
+
+.ng-enter-active {
+    /*直到完全看见*/
+    opacity: 1;
 }
