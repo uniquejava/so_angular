@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="parking">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
+    <style>
+        .selected {
+            background-color: #FAFAD2;
+        }
+    </style>
+</head>
+<body ng-controller="parkingCtrl">
+<h3 ng-bind-html="appTitle"></h3>
+
+<div ng-show="cars.length > 0">
+    <table>
+        <thead>
+        <tr>
+            <th>Plate</th>
+            <th>Entrance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="car in cars" ng-class="{selected: car.selected}">
+            <td><input type="checkbox" ng-model="car.selected"></td>
+            <td><span ng-bind="car.plate"></span></td>
+            <td><span ng-bind="car.color" ng-style="{color: car.color}"></span></td>
+            <td><span ng-bind="car.entrance"></span></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-hide="cars.length > 0">
+    The parking lot is empty
+</div>
+
+<input type="text" ng-model="car.plate" placeholder="What's the plate?">
+<select ng-model="car.color" ng-options="color for color in colors">Pick a color</select>
+<button ng-click="park(car)" ng-disabled="!car.plate || !car.color">Park</button>
+</body>
+</html>

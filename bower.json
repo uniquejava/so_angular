@@ -1,0 +1,22 @@
+{
+  "name": "so_angular",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "cyper <345343747@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "lib"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-sanitize": "^1.5.8"
+  }
+}
