@@ -16,7 +16,7 @@
 </head>
 <body ng-controller="parkingCtrl">
 <h3 ng-bind-html="appTitle"></h3>
-
+<alert ng-show="showAlert" title="hello title" close="closeAlert()">{{alertDesc}}</alert>
 <div ng-show="cars.length > 0">
     <table>
         <thead>

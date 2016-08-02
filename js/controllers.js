@@ -3,6 +3,11 @@
  */
 parking.controller('parkingCtrl', function ($scope) {
     $scope.appTitle = "Fighting! <small>Cyper</small>";
+    $scope.showAlert = true;
+    $scope.alertDesc = "hello desc";
+    $scope.closeAlert = function () {
+        $scope.showAlert = false;
+    };
     $scope.cars = [];
     $scope.colors = ["White", "Black", "Blue", "Red", "Silver"];
 
