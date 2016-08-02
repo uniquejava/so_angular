@@ -10,6 +10,7 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directives.js"></script>
+    <script src="js/filters.js"></script>
 </head>
 <body ng-controller="parkingCtrl">
 <h3 ng-bind-html="appTitle"></h3>
@@ -41,7 +42,7 @@
         <tr ng-repeat="car in cars | filter: criteria | orderBy: fieldName: ascOrDesc"
             ng-class="{selected: car.selected}">
             <td><input type="checkbox" ng-model="car.selected"></td>
-            <td>{{car.plate}}</td>
+            <td>{{car.plate | plate}}</td>
             <td ng-style="{color: car.color}">{{car.color}}</td>
             <td>{{car.entrance | date}}</td>
 
