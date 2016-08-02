@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-sanitize/angular-sanitize.js"></script>
     <script src="js/app.js"></script>
@@ -16,7 +17,19 @@
 </head>
 <body ng-controller="parkingCtrl">
 <h3 ng-bind-html="appTitle"></h3>
-<alert ng-show="showAlert" title="hello title" close="closeAlert()">{{alertDesc}}</alert>
+
+<accordion>
+    <accordion-item title="MMM-8979">
+        White - 10/10/2002 10:00
+    </accordion-item>
+    <accordion-item title="ABC-2343">
+        Black - 10/10/2002 10:36
+    </accordion-item>
+    <accordion-item title="XYZ-2323">
+        Blue - 10/10/2002 11:00
+    </accordion-item>
+</accordion>
+
 <div ng-show="cars.length > 0">
     <table>
         <thead>

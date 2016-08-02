@@ -17,4 +17,13 @@ WebStorm 2016.1.3, OSX 10.11.6, Angular 1.5.8
 =表示用户将给定一个变量名
 &表示用户将给定一个函数名(需要跟上一对括号)
 模板中的ng-transclude表示这个元素的innerText来自于用户使用相应指令时填写的innerText.  需要在该指令的DDO中写上transclude:true才能生效.
+link: function (scope, element, attrs, ctrl, transcludeFn)用来给element绑定一个事件
+controller: function ($scope, $element, $attrs, $transclude) 在指令所在的scope上暴露一些API, 给指令对应的模板或者嵌套的指令的模板使用.(就像ng-controller)
+```
+
+### live template
+
+```
+ngdl
+ngdc
 ```
