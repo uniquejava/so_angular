@@ -24,8 +24,7 @@
 .ng-enter {
     /*从一开始看不见*/
     opacity: 0;
-    -webkit-transition: all 5s linear;
-    transition: all 5s linear;
+    transition: all 0.5s linear;
 
 }
 

@@ -26,20 +26,24 @@
     </accordion-item>
 </accordion>
 
+<input type="text" ng-model="criteria" placeholder="What are you looking for?">
+
 <div ng-show="cars.length > 0">
     <table>
         <thead>
         <tr>
-            <th>Plate</th>
-            <th>Entrance</th>
+            <th><a href="" ng-click="fieldName='plate'; ascOrDesc=!ascOrDesc">Plate</a></th>
+            <th><a href="" ng-click="fieldName='color'; ascOrDesc=!ascOrDesc">Color</a></th>
+            <th><a href="" ng-click="fieldName='entrance'; ascOrDesc=!ascOrDesc">Entrance</a></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="car in cars" ng-class="{selected: car.selected}">
+        <tr ng-repeat="car in cars | filter: criteria | orderBy: fieldName: ascOrDesc"
+            ng-class="{selected: car.selected}">
             <td><input type="checkbox" ng-model="car.selected"></td>
-            <td><span ng-bind="car.plate"></span></td>
-            <td><span ng-bind="car.color" ng-style="{color: car.color}"></span></td>
-            <td><span ng-bind="car.entrance"></span></td>
+            <td>{{car.plate}}</td>
+            <td ng-style="{color: car.color}">{{car.color}}</td>
+            <td>{{car.entrance | date}}</td>
 
         </tr>
         </tbody>
