@@ -174,3 +174,10 @@ $app$.provider("$serviceName$", function () {
     
 });
 ```
+
+ngcfg
+```js
+$app$.config(function ($serviceName$Provider) {
+    $serviceName$Provider.set$ConfigName$($value$);
+});
+```

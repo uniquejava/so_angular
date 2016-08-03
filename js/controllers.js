@@ -1,7 +1,7 @@
 /**
  * Created by cyper on 8/2/16.
  */
-parking.controller('parkingCtrl', function ($scope, $filter, parkingService) {
+parking.controller('parkingCtrl', function ($scope, $filter, parkingService3) {
     $scope.appTitle = $filter('uppercase')("Fighting! <small>Cyper</small>");
     $scope.showAlert = true;
     $scope.alertDesc = "hello desc";
@@ -21,7 +21,7 @@ parking.controller('parkingCtrl', function ($scope, $filter, parkingService) {
     };
 
     $scope.calculateTicket = function (car) {
-        $scope.ticket = parkingService.calculateTicket(car);
+        $scope.ticket = parkingService3.calculateTicket(car);
 
     };
 });
