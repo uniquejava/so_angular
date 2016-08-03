@@ -112,6 +112,15 @@ angular自动在scope中设置carForm变量, 可以直接使用它的$valid/$inv
 
 ### live template
 
+ngfilter
+```js
+$app$.filter('$filterName$', function () {
+    return function (input) {
+        return $END$
+    };
+});
+```
+
 ngdl
 
 ngdc
@@ -143,5 +152,25 @@ $app$.service("$serviceName$", function () {
         return $END$;
     };
 
+});
+```
+
+ngp
+```js
+$app$.provider("$serviceName$", function () {
+    var _$configName$ = 0;
+    var _$func$ = function () {
+        $END$
+    };
+    this.set$configName$ = function($configName$){
+        _$configName$ = $configName$;
+    };
+    this.$get = function () {
+        // Revealing Module Pattern
+        return {
+            $func$: _$func$
+        };
+    };
+    
 });
 ```
