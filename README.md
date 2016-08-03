@@ -52,6 +52,64 @@ controller: function ($scope, $element, $attrs, $transclude) 在指令所在的s
 
 自己通过ngClass添加.selected, angular自动给添加.selected-add, 还会在瞬间继续添加.selected-add-active, 最后完全移除.selected-add和.selected-active
 
+### expressions
+{{expression | filter1 | filter2}}
+
+currency
+
+date
+
+filter
+
+json
+
+limitTo: 10
+
+lowercase
+
+number: 2 (保留两位小数)
+
+orderBy: fieldName : ascOrDesc(boolean) 或 orderBy: +/-fieldName
+
+```js
+$filter('uppercase')('hello world');
+
+parking.filter('plate', function () {
+    return function (input, separator) {
+        separator = separator || ' - '
+        var head = input.substring(0, 3);
+        var tail = input.substring(3);
+        return head + separator + tail;
+
+    };
+});
+```
+
+
+
+#### form validation
+The HTML language has an element called `form` that surrounds the fields in order to pass them to the server. It also creates a boundary, isolating the form as a single and unique context.
+
+为了使用form validation, 得给form和每个input一个name属性, 这样我们就可以通过name找到它们
+
+不要直接用ngModel中出现的名字, 给它们加个类型后缀是个好办法, 比如carForm, plateField, ..
+
+```html
+<alert ng-show="carForm.$dirty && carForm.plateField.$invalid" title="Something went wrong!">
+    The plate is invalid!
+</alert>
+
+<form name="carForm">
+    <input type="text" name="plateField" ng-model="car.plate" 
+    placeholder="What's the plate?" ng-required="true" ng-minlength="6" ng-maxlength="10" ng-pattern="/[A-Z{3}[0-9]{3,7}/">
+```
+
+angular自动在scope中设置carForm变量, 可以直接使用它的$valid/$invalid/$pristine/$dirty, 
+
+也可以用到各个field之上: `carForm.plateField.$valid/$invalid/$error.required/$error.minlength/$error.pattern`
+
+
+
 ### live template
 
 ngdl

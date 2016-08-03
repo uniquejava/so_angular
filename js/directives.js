@@ -5,7 +5,7 @@ parking.directive("alert", function () {
     return {
         restrict: 'E',
         scope: {
-            title: '=',
+            title: '@',
             close: '&'
         },
         templateUrl: "alert.html",
@@ -45,7 +45,7 @@ parking.directive("alert", function () {
             title: "@"
         },
         transclude: true,
-        require: '^accordion',
+        require: '^accordion', //查找名为accordion[parent指令]中是否有定义controller, ^表示parent
         link: function (scope, element, attrs, ctrl, transcludeFn) {
             ctrl.addAccordionItem(scope);
             element.bind('click', function () {
