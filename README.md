@@ -134,3 +134,14 @@ $app$.constant('$app$Config', {
     $key$: $value$
 });
 ```
+
+ngs
+```js
+$app$.service("$serviceName$", function () {
+    this.$func$ = function () {
+
+        return $END$;
+    };
+
+});
+```
