@@ -115,3 +115,22 @@ angular自动在scope中设置carForm变量, 可以直接使用它的$valid/$inv
 ngdl
 
 ngdc
+
+ngf
+```js
+$app$.factory("$serviceName$", function () {
+    var _$func$ = function () {
+        $END$
+    };
+    return {
+        $func$: _$func$
+    };
+};
+```
+
+ngconst
+```js
+$app$.constant('$app$Config', {
+    $key$: $value$
+});
+```
