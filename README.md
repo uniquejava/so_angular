@@ -247,18 +247,35 @@ $app$.factory("$serviceName$", function ($http) {
 });
 ```
 
-ngreqi
+ngReqI
 ```js
 // $httpProvider.interceptors.push("httpTimestampInterceptor");
-parking.factory("httpTimestampInterceptor", function () {
+$app$.factory("httpTimestampInterceptor", function () {
     return {
         'request': function (config) {
             var ts = Date.now();
             config.url = config.url + "?ts=" + ts;
             return config;
-        }
+        };
     }
 });
 ```
 
+ngResErrI
+```js
+// $httpProvider.interceptors.push("httpUnauthorizedInterceptor");
+$app$.factory("httpUnauthorizedInterceptor", function ($q, $rootScope) {
+    return {
+        'responseError': function (rejection) {
+            if (rejection.status === 401) {
+                // indicate that the app should open the login dialog
+                $rootScope.login = true;
+            }
+
+            return $q.reject(rejection);
+
+        }
+    };
+});
+```
 

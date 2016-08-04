@@ -92,5 +92,21 @@ parking.factory("httpTimestampInterceptor", function () {
             config.url = config.url + "?ts=" + ts;
             return config;
         }
-    }
+    };
+});
+
+parking.factory("httpUnauthorizedInterceptor", function ($q, $rootScope) {
+    return {
+        'responseError': function (rejection) {
+            console.log('rejection:', rejection);
+
+            if (rejection.status === 401) {
+                // indicate that the app should open the login dialog
+                $rootScope.login = true;
+            }
+
+            return $q.reject(rejection);
+
+        }
+    };
 });
