@@ -84,3 +84,13 @@ parking.factory("parkingHttpFacade", function ($http) {
         deleteCar: _deleteCar
     };
 });
+
+parking.factory("httpTimestampInterceptor", function () {
+    return {
+        'request': function (config) {
+            var ts = Date.now();
+            config.url = config.url + "?ts=" + ts;
+            return config;
+        }
+    }
+});

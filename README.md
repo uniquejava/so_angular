@@ -247,4 +247,18 @@ $app$.factory("$serviceName$", function ($http) {
 });
 ```
 
+ngreqi
+```js
+// $httpProvider.interceptors.push("httpTimestampInterceptor");
+parking.factory("httpTimestampInterceptor", function () {
+    return {
+        'request': function (config) {
+            var ts = Date.now();
+            config.url = config.url + "?ts=" + ts;
+            return config;
+        }
+    }
+});
+```
+
 
