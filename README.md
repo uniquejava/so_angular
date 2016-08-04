@@ -181,3 +181,70 @@ $app$.config(function ($serviceName$Provider) {
     $serviceName$Provider.set$ConfigName$($value$);
 });
 ```
+
+nghttp
+```js
+$http({
+    method: 'GET',
+    url: '$url$'
+}).then(function success(res) {
+    console.log(res.data);
+}, function error(res) {
+    console.log(res.data, res.status, res.headers, res.config, res.statusText);
+});
+```
+
+ngget
+```js
+$http.get("/$bean$s").success(function (data, status, headers, config) {
+    $scope.$bean$s = data;
+
+}).error(function (data, status, headers, config) {
+    console.log(data, status);
+});
+```
+
+ngpost
+```js
+$http.post("/$bean$s", $bean$).success(function (data, status, headers, config) {
+    $scope.$bean$s = data;
+
+}).error(function (data, status, headers, config) {
+    console.log(data, status);
+});
+```
+
+ngcrud
+```js
+$app$.factory("$serviceName$", function ($http) {
+    var _get$Bean$s = function () {
+        return $http.get("/$bean$s");
+    };
+
+    var _get$Bean$ = function (id) {
+        return $http.get("/$bean$s/" + id);
+    };
+
+    var _save$Bean$ = function ($bean$) {
+        $http.post("/$bean$s", $bean$);
+    };
+
+    var _update$Bean$ = function ($bean$) {
+        return $http.put("/$bean$s/" + $bean$.id, $bean$);
+    };
+
+    var _delete$Bean$ = function (id) {
+        return $http.delete("/$bean$s/" + id);
+    };
+
+    return {
+        get$Bean$s: _get$Bean$s,
+        get$Bean$: _get$Bean$,
+        save$Bean$: _save$Bean$,
+        update$Bean$: _update$Bean$,
+        delete$Bean$: _delete$Bean$
+    };
+});
+```
+
+
