@@ -1,7 +1,7 @@
-parking.factory("parkingService", function (parkingConfig) {
+parking.factory("parkingFactory", function (parkingConfig) {
     var _calculateTicket = function (car) {
         var departHour = new Date().getHours();
-        var entranceHour = car.entrance.getHours();
+        var entranceHour = new Date(car.entrance).getHours();
         var parkingPeriod = departHour - entranceHour;
         var parkingPrice = parkingPeriod * parkingConfig.parkingRate;
         return {
@@ -16,10 +16,10 @@ parking.factory("parkingService", function (parkingConfig) {
 });
 
 
-parking.service("parkingService2", function (parkingConfig) {
+parking.service("parkingService", function (parkingConfig) {
     this.calculateTicket = function (car) {
         var departHour = new Date().getHours();
-        var entranceHour = car.entrance.getHours();
+        var entranceHour = new Date(car.entrance).getHours();
         var parkingPeriod = departHour - entranceHour;
         var parkingPrice = parkingPeriod * parkingConfig.parkingRate;
         return {
@@ -30,11 +30,11 @@ parking.service("parkingService2", function (parkingConfig) {
 
 });
 
-parking.provider("parkingService3", function (parkingConfig) {
+parking.provider("parkingProvider", function (parkingConfig) {
     var _parkingRate = parkingConfig.parkingRate;
     var _calculateTicket = function (car) {
         var departHour = new Date().getHours();
-        var entranceHour = car.entrance.getHours();
+        var entranceHour = new Date(car.entrance).getHours();
         var parkingPeriod = departHour - entranceHour;
         var parkingPrice = parkingPeriod * _parkingRate;
         return {
@@ -55,25 +55,27 @@ parking.provider("parkingService3", function (parkingConfig) {
     };
 });
 
-parking.factory("parkingHttpFacade", function ($http) {
+parking.factory("parkingHttpFacade", function ($http, parkingConfig) {
+    var url = parkingConfig.rest_url;
+
     var _getCars = function () {
-        return $http.get("/cars");
+        return $http.get(url + "/cars");
     };
 
     var _getCar = function (id) {
-        return $http.get("/cars/" + id);
+        return $http.get(url + "/cars/" + id);
     };
 
     var _saveCar = function (car) {
-        $http.post("/cars", car);
+        return $http.post(url + "/cars", car);
     };
 
     var _updateCar = function (car) {
-        return $http.put("/cars/" + car.id, car);
+        return $http.put(url + "/cars/" + car.id, car);
     };
 
     var _deleteCar = function (id) {
-        return $http.delete("/cars/" + id);
+        return $http.delete(url + "/cars/" + id);
     };
 
     return {

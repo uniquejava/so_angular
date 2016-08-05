@@ -1,7 +1,8 @@
 /**
  * Created by cyper on 8/2/16.
  */
-parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingService3, parkingHttpFacade) {
+// the cars is from routeProvider-resolve
+parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvider, parkingHttpFacade, cars) {
     $scope.appTitle = $filter('uppercase')("Fighting! <small>Cyper</small>");
     $scope.showAlert = true;
     $scope.alertDesc = "hello desc";
@@ -21,6 +22,8 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingServi
     };
 
     $scope.parkCar = function (car) {
+        car.id = parseInt(Math.random() * 10e4);
+        console.log('car is:', car);
         parkingHttpFacade.saveCar(car)
             .success(function (data, status, headers, config) {
                 retrieveCars();
@@ -28,19 +31,7 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingServi
 
             })
             .error(function (data, status, headers, config) {
-                switch (status) {
-                    case 401:
-                    {
-                        $scope.message = "You must be authenticated!";
-                        break;
-                    }
-                    case 500:
-                    {
-                        $scope.message = "Something went wrong!";
-                        break;
-
-                    }
-                }
+                $scope.message = "Something went wrong!";
                 console.log(data, status);
 
             });
@@ -48,7 +39,7 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingServi
     };
 
     $scope.calculateTicket = function (car) {
-        $scope.ticket = parkingService3.calculateTicket(car);
+        $scope.ticket = parkingProvider.calculateTicket(car);
 
     };
 
@@ -59,25 +50,31 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingServi
 
             })
             .error(function (data, status, headers, config) {
-                switch (status) {
-                    case 401:
-                    {
-                        $scope.message = "You must be authenticated!";
-                        break;
-                    }
-                    case 500:
-                    {
-                        $scope.message = "Something went wrong!";
-                        break;
-
-                    }
-                }
+                $scope.message = "Something went wrong!";
                 console.log(data, status);
 
             });
     };
-    retrieveCars();
+    //retrieveCars();
+    $scope.cars = cars.data;
 });
 
+// the car is from routeProvider-resolve
+parking.controller("carCtrl", function ($scope, $routeParams, parkingHttpFacade,parkingProvider, $location, $window, car) {
+    $scope.depart = function (car) {
+        parkingHttpFacade.deleteCar(car.id).then(function success(res) {
+            $scope.message = "OK";
+            $location.path("/parking");
+
+        }, function error(res) {
+            //console.log(res.data, res.status, res.headers, res.config, res.statusText);
+            $window.location.href = "error.html";
+
+        });
+    };
 
 
+    $scope.car = car.data;
+    $scope.ticket = parkingProvider.calculateTicket(car.data);
+    
+});

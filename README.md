@@ -57,7 +57,7 @@ controller: function ($scope, $element, $attrs, $transclude) 在指令所在的s
 
 currency
 
-date
+date: 'dd/MM/yyyy hh:mm'
 
 filter
 
@@ -108,9 +108,18 @@ angular自动在scope中设置carForm变量, 可以直接使用它的$valid/$inv
 
 也可以用到各个field之上: `carForm.plateField.$valid/$invalid/$error.required/$error.minlength/$error.pattern`
 
+### Thinking
+controller中的$scope相当于vue中的data. 每个模板都需要data属性! controller的$scope暴露property或method给template使用就这么简单. 
+ng-route中的resolve是真正类似data属性的东西. 可以在resolve上定义变量给template使用(不过需要先通过injection注入到controller的$scope之上 angular完全可以简化)
 
+### Live template
 
-### live template
+ngc
+```js
+$app$.controller("$name$Ctrl", function ($scope, $routeParams) {
+    $END$
+});
+```
 
 ngfilter
 ```js
@@ -194,6 +203,16 @@ $http({
 });
 ```
 
+ngthen
+```js
+.then(function success(res) {
+    // console.log(res.data);
+    $END$
+}, function error(res) {
+    // console.log(res.data, res.status, res.headers, res.config, res.statusText);
+});
+```
+
 ngget
 ```js
 $http.get("/$bean$s").success(function (data, status, headers, config) {
@@ -217,24 +236,25 @@ $http.post("/$bean$s", $bean$).success(function (data, status, headers, config) 
 ngcrud
 ```js
 $app$.factory("$serviceName$", function ($http) {
+    var url = "";
     var _get$Bean$s = function () {
-        return $http.get("/$bean$s");
+        return $http.get(url + "/$bean$s");
     };
 
     var _get$Bean$ = function (id) {
-        return $http.get("/$bean$s/" + id);
+        return $http.get(url + "/$bean$s/" + id);
     };
 
     var _save$Bean$ = function ($bean$) {
-        $http.post("/$bean$s", $bean$);
+        return $http.post(url + "/$bean$s", $bean$);
     };
 
     var _update$Bean$ = function ($bean$) {
-        return $http.put("/$bean$s/" + $bean$.id, $bean$);
+        return $http.put(url + "/$bean$s/" + $bean$.id, $bean$);
     };
 
     var _delete$Bean$ = function (id) {
-        return $http.delete("/$bean$s/" + id);
+        return $http.delete(url + "/$bean$s/" + id);
     };
 
     return {
@@ -277,5 +297,19 @@ $app$.factory("httpUnauthorizedInterceptor", function ($q, $rootScope) {
         }
     };
 });
+```
+
+ngr
+```js
+$routeProvider.when("/$route1$", {
+    templateUrl: "$route1$.html",
+    controller: "$route1$Ctrl"
+}).when("/car/:id", {
+    templateUrl: "car.html",
+    controller: "carCtrl"
+}).otherwise({
+    redirectTo: "/$route1$"
+});$END$
+
 ```
 
