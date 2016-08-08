@@ -22,6 +22,19 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvi
 
     });
 
+    var listenToTick = function () {
+        $scope.$on('TICK', function (event, tick) {
+            $scope.tick = tick;
+            
+        });
+    };
+    listenToTick();
+
+    $scope.stopTicking = function () {
+        $scope.$emit('STOP_TICK');
+
+    };
+
 
     $scope.oldParkCar = function (car) {
 

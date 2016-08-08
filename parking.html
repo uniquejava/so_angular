@@ -1,5 +1,7 @@
 <h3 ng-bind-html="appTitle"></h3>
-
+<h4>{{tick | date: 'hh:mm:ss'}}
+<button ng-click="stopTicking()">Stop</button>
+</h4>
 <accordion>
     <accordion-item title="MMM-8979">
         White - 10/10/2002 10:00

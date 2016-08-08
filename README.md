@@ -313,7 +313,7 @@ $routeProvider.when("/$route1$", {
 
 ```
 
-ngRun
+ngrun
 ```js
 parking.run(function ($http, $rootScope, $window) {
     $http.defaults.headers.common.Accept = "application/json";

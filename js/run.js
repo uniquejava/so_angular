@@ -1,4 +1,4 @@
-parking.run(function ($http, $rootScope, $window) {
+parking.run(function ($http, $rootScope, $window, tickGenerator) {
     $http.defaults.headers.common.Accept = "application/json";
     $http.defaults.headers.common.Authorization = 'Basic YmVlcDpib29w';
 
@@ -14,4 +14,8 @@ parking.run(function ($http, $rootScope, $window) {
         $window.location.href = "error.html";
 
     });
+
+    $rootScope.appTItle = "Hello Cyper";
+
+    tickGenerator.start();
 });
