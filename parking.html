@@ -48,7 +48,7 @@
 
 <form name="carForm">
     <input type="text" name="plateField" ng-model="car.plate" placeholder="What's the plate?" ng-required="true"
-           ng-minlength="6" ng-maxlength="10" ng-pattern="/^[A-Z]{3}[0-9]{3,7}$/">
+           ng-minlength="6" ng-maxlength="10" ng-pattern="/^[A-Z]{3}[0-9]{3,7}$/"> <span>{{plateCounter}}</span>
     <select ng-model="car.color" ng-options="color for color in colors">Pick a color</select>
     <button ng-click="parkCar(car)" ng-disabled="carForm.$invalid">Park</button>
 </form>

@@ -145,3 +145,12 @@ parking.factory("carSearchService", function ($timeout, $q) {
         filter: _filter
     };
 });
+
+parking.factory("loginService", function ($http) {
+    var _login = function (user) {
+        $http.post("/login", user);
+    };
+    return {
+        login: _login
+    };
+});

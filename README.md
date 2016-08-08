@@ -137,7 +137,7 @@ ngdc
 ngf
 ```js
 $app$.factory("$serviceName$", function () {
-    var _$func$ = function () {
+    var _$func$ = function ($param$) {
         $END$
     };
     return {

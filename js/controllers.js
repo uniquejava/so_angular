@@ -12,6 +12,17 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvi
     $scope.cars = [];
     $scope.colors = ["White", "Black", "Blue", "Red", "Silver"];
 
+    $scope.plateCounter = 0;
+    $scope.$watch('car.plate', function (newValue, oldValue) {
+        if (newValue === oldValue) {
+            return;
+        }
+
+        $scope.plateCounter++;
+
+    });
+
+
     $scope.oldParkCar = function (car) {
 
         car.entrance = new Date();
@@ -87,4 +98,23 @@ parking.controller("carCtrl", function ($scope, $routeParams, parkingHttpFacade,
     $scope.car = car.data;
     $scope.ticket = parkingProvider.calculateTicket(car.data);
 
+});
+
+parking.controller("faqCtrl", function ($scope, $routeParams) {
+    $scope.faq = false;
+    $scope.openFAQ = function () {
+        $scope.faq = true;
+        
+    };
+
+    $scope.closeFAQ = function () {
+        $scope.faq = false;
+        
+    };
+});
+
+parking.controller("loginCtrl", function ($scope, loginService) {
+    $scope.login = function (user) {
+        loginService.login(user);
+    };
 });
