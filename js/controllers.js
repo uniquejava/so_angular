@@ -2,7 +2,7 @@
  * Created by cyper on 8/2/16.
  */
 // the cars is from routeProvider-resolve
-parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvider, parkingHttpFacade, cars) {
+parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvider, parkingHttpFacade, carSearchService, cars) {
     $scope.appTitle = $filter('uppercase')("Fighting! <small>Cyper</small>");
     $scope.showAlert = true;
     $scope.alertDesc = "hello desc";
@@ -38,6 +38,16 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvi
 
     };
 
+    $scope.searchCarsByCriteria = function (criteria) {
+        carSearchService.filter($scope.cars, criteria)
+            .then(function (result) {
+                $scope.searchResult = result;
+            })
+            .catch(function (message) {
+                $scope.message = message;
+            });
+    };
+
     $scope.calculateTicket = function (car) {
         $scope.ticket = parkingProvider.calculateTicket(car);
 
@@ -60,7 +70,7 @@ parking.controller('parkingCtrl', function ($scope, $filter, $http, parkingProvi
 });
 
 // the car is from routeProvider-resolve
-parking.controller("carCtrl", function ($scope, $routeParams, parkingHttpFacade,parkingProvider, $location, $window, car) {
+parking.controller("carCtrl", function ($scope, $routeParams, parkingHttpFacade, parkingProvider, $location, $window, car) {
     $scope.depart = function (car) {
         parkingHttpFacade.deleteCar(car.id).then(function success(res) {
             $scope.message = "OK";
@@ -76,5 +86,5 @@ parking.controller("carCtrl", function ($scope, $routeParams, parkingHttpFacade,
 
     $scope.car = car.data;
     $scope.ticket = parkingProvider.calculateTicket(car.data);
-    
+
 });

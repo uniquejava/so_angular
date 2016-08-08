@@ -114,11 +114,13 @@ parking.factory("httpUnauthorizedInterceptor", function ($q, $rootScope) {
 });
 
 
-parking.factory("carSearchService", function ($timeout) {
+parking.factory("carSearchService", function ($timeout, $q) {
     var filterPromise;
 
-    var _filter = function (cars, criteria, resultCb) {
+    var _filter = function (cars, criteria, successCb, errorCb) {
         $timeout.cancel(filterPromise);
+
+        var deferred = $q.defer();
         filterPromise = $timeout(function () {
             var result = [];
             angular.forEach(cars, function (car) {
@@ -126,9 +128,14 @@ parking.factory("carSearchService", function ($timeout) {
                     result.push(car);
                 }
             });
-
-            resultCb(result);
+            if (result.length > 0) {
+                deferred.resolve(result)
+            } else {
+                deferred.reject("No results were found!");
+            }
         }, 1000);
+
+        return deferred.promise;
     };
 
     var _matches = function (car, criteria) {
