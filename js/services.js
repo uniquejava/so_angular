@@ -112,3 +112,29 @@ parking.factory("httpUnauthorizedInterceptor", function ($q, $rootScope) {
         }
     };
 });
+
+
+parking.factory("carSearchService", function ($timeout) {
+    var filterPromise;
+
+    var _filter = function (cars, criteria, resultCb) {
+        $timeout.cancel(filterPromise);
+        filterPromise = $timeout(function () {
+            var result = [];
+            angular.forEach(cars, function (car) {
+                if (_matches(car, criteria)) {
+                    result.push(car);
+                }
+            });
+
+            resultCb(result);
+        }, 1000);
+    };
+
+    var _matches = function (car, criteria) {
+        return angular.toJson(car).indexOf(criteria) > 0;
+    };
+    return {
+        filter: _filter
+    };
+});
