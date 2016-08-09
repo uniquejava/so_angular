@@ -3,7 +3,9 @@ My coding practice for book "AngularJS: Maintaining Web Applications(2016)" `so=
 每个提交记录对应一个topic, 点击这个commit就能通过看代码的方式学习到相应的知识点.
 
 ### Environment
-WebStorm 2016.1.3, OSX 10.11.6, Angular 1.5.8
+WebStorm 2016.2.1, OSX 10.11.6, Angular 1.5.8
+
+A simple companion nodejs backend is here: https://github.com/uniquejava/so_angular-api
 
 
 ### Directive
