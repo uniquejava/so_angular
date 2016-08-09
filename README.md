@@ -130,9 +130,145 @@ $app$.filter('$filterName$', function () {
 });
 ```
 
-ngdl
+ngdbasic
+```js
+$app$.directive("$directiveName$", function () {
+    var ddo = {
+        restrict: 'E',
+        scope: {
+            $v1$: '$relationship1$'
+        },
+        replace: true,
+        templateUrl: '$url'
+    };
+    return ddo;
+});
+```
 
-ngdc
+ngdalert
+```js
+$app$.directive("$directiveName$", function () {
+    var ddo = {
+        restrict: 'E',
+        scope: {
+            topic: '@', // 使用者将直接给定一个字符串常量.
+            content: '=', // 指令局部的scope与指令所在的controller(parent scope)共享同一个变量
+            close: '&' // 指定一个可供directive回调的外部函数
+        },
+        replace: true, // 使用模板替换掉指定了该指令的标签(outerHTML)
+        transclude: true, // 使用了该指令的标签的body将直接插入到模板中ng-transclude所在的位置
+        template: 
+             "<div class='alert'>" +
+               "<span class='alert-topic'>" +
+                 "{{topic}}" +
+               "</span>" +
+               "<span class='alert-description' ng-transclude>" +
+               "</span>" +
+             "</div>"
+    };
+    return ddo;
+});
+```
+
+ngdaccordion
+```js
+$app$.directive('$directiveName$', function () {
+    var ddo = {
+        restrict: "E",
+        transclude: true,
+        template: "<div ng-transclude=''></div>",
+        controller: function ($scope, $element, $attrs, $transclude) {
+            var accordionItems = [];
+            var addAccordionItem = function (accordionScope) {
+                accordionItems.push(accordionScope);
+            };
+            var closeAll = function () {
+                angular.forEach(accordionItems, function (accordionScope) {
+                    accordionScope.active = false;
+                })
+            };
+
+            return {
+                addAccordionItem: addAccordionItem,
+                closeAll: closeAll
+            }
+        }
+    };
+
+    return ddo;
+});
+```
+
+ngdaccordionItem
+```js
+$app$.directive("$directiveName$", function () {
+    var ddo = {
+        restrict: 'E',
+        scope: {
+            title: '@'
+        },
+        transclude: true, // 使用了该指令的标签的body将直接插入到模板中ng-transclude所在的位置
+        template: 
+          "<div class='accordion-item'>" +
+            "{{title}}" +
+          "</div>" +
+          "<div " +
+            "ng-show='active' " +
+            "class='accordion-description' " +
+            "ng-transclude" +
+          ">" +
+          "</div>",
+        require: '^accordion', //查找名为accordion[parent指令]中是否有定义controller, ^表示parent, 并将其设置为link的第4个参数
+        link: function (scope, element, attrs, ctrl, transcludeFn) {
+            ctrl.addAccordionItem(scope);
+            element.bind('click', function () {
+                var isActive = scope.active;
+                ctrl.closeAll();
+                scope.$apply(function () {
+                    scope.active = !isActive;
+                });
+            });
+        }
+    };
+    return ddo;
+});
+```
+
+ngdlink
+```js
+require: '^accordion',
+link: function (scope, element, attrs, ctrl, transcludeFn) {
+    ctrl.addAccordionItem(scope);
+    element.bind('click', function () {
+        var isActive = scope.active;
+        ctrl.closeAll();
+        scope.$apply(function () {
+            scope.active = !isActive;
+        });
+    });
+}
+```
+
+ngdctrl
+```js
+controller: function ($scope, $element, $attrs, $transclude) {
+    var accordionItems = [];
+    var addAccordionItem = function (accordionScope) {
+        accordionItems.push(accordionScope);
+    };
+    var closeAll = function () {
+        angular.forEach(accordionItems, function (accordionScope) {
+            accordionScope.active = false;
+        })
+    };
+
+    return {
+        addAccordionItem: addAccordionItem,
+        closeAll: closeAll
+    }
+}
+```
+
 
 ngf
 ```js
@@ -335,5 +471,18 @@ $rootScope.$on("$routeChangeError", function (event, current, previous, rejectio
     $window.location.href = "error.html";
 
 });
+```
+
+ngdefer
+```js
+var d = $q.defer();
+$body$
+if($success$) {
+    d.resolve(result);
+} else {
+    d.reject("No results were found!");
+
+}
+return d.promise;
 ```
 
